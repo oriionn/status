@@ -80,26 +80,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Vaultwarden</td>
-                    <td>UP</td>
-                    <td>42%</td>
-                </tr>
-                <tr>
-                    <td>Forgejo</td>
-                    <td>UP</td>
-                    <td>84%</td>
-                </tr>
-                <tr>
-                    <td>Vaultwarden</td>
-                    <td>UP</td>
-                    <td>42%</td>
-                </tr>
-                <tr>
-                    <td>Forgejo</td>
-                    <td>UP</td>
-                    <td>84%</td>
-                </tr>
+                {{range .Services}}
+                    <tr>
+                        <td>{{.Name}}</td>
+                        {{if .Status}}
+                            <td>UP</td>
+                        {{else}}
+                            <td>DOWN</td>
+                        {{end}}
+                        <td>{{ percent .Up .Total }}%</td>
+                    </tr>
+                {{end}}
             </tbody>
         </table>
     </section>
