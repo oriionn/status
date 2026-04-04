@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status</title>
+
+    <style>
+        * {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        head, body {
+            background: #171717;
+            color: #fff;
+        }
+
+        body {
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        header div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header h1 {
+            border-bottom: 1px solid rgba(255, 255, 255, .8);
+            margin-bottom: 5px;
+        }
+
+        header img {
+            height: 75px;
+            width: auto;
+        }
+
+        .table {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th {
+            text-align: left;
+        }
+
+        table tbody tr:nth-child(even) {
+            background: #1f1f1f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://placehold.co/600x400" alt="Logo" />
+        <div>
+            <h1>Title</h1>
+            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident repudiandae nesciunt at iste molestiae commodi, veritatis odit autem. Totam velit ipsum tenetur est labore veniam, dignissimos sed ex eligendi magnam!</span>
+        </div>
+    </header>
+
+    <section class="table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Status</th>
+                    <th>Uptime</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Vaultwarden</td>
+                    <td>UP</td>
+                    <td>42%</td>
+                </tr>
+                <tr>
+                    <td>Forgejo</td>
+                    <td>UP</td>
+                    <td>84%</td>
+                </tr>
+                <tr>
+                    <td>Vaultwarden</td>
+                    <td>UP</td>
+                    <td>42%</td>
+                </tr>
+                <tr>
+                    <td>Forgejo</td>
+                    <td>UP</td>
+                    <td>84%</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>
