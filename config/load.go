@@ -15,5 +15,21 @@ func Load() (Config, error) {
 	}
 
 	_, err := toml.DecodeFile(f, &conf)
-	return conf, err
+	if err != nil {
+		return conf, err
+	}
+
+	if conf.Icon == "" {
+		conf.Icon = "/status.png"
+	}
+
+	if conf.Port == 0 {
+		conf.Port = 3333
+	}
+
+	if conf.Interval == 0 {
+		conf.Interval = 2
+	}
+
+	return conf, nil
 }

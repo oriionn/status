@@ -2,12 +2,14 @@ package services
 
 import (
 	"io"
+	"log"
 	"net/http"
 	"sync"
 	"time"
 )
 
 func Check(service *Service) bool {
+	log.Printf("Service: checking status of %s\n", service.Name)
 	service.Total++
 
 	url := service.URL
@@ -35,7 +37,8 @@ func CheckServices(l *[]Service) {
 		wg.Add(1)
 		go func(s *Service) {
 			defer wg.Done()
-			Check(s)
+			a := Check(s)
+			log.Printf("Service: %s's status = %t\n", s.Name, a)
 		}(&(*l)[i])
 	}
 	wg.Wait()

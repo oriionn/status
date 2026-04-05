@@ -7,5 +7,6 @@ type Config struct {
 	Description string `toml:"description"`
 	Icon string `toml:"icon"`
 	Interval int `toml:"interval"`
+	Port int `toml:"port"`
 	Services []services.Service `toml:"service"`
 }

@@ -2,7 +2,9 @@ package main
 
 import (
 	_ "embed"
+	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 
 	"git.oriondev.fr/orion/status/config"
@@ -20,7 +22,7 @@ func getPage(
 func main() {
 	conf, err := config.Load()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	t := renderTemplate()
@@ -30,8 +32,9 @@ func main() {
 
 	services.StartTimer(&conf.Services, conf.Interval)
 
-	err = http.ListenAndServe(":3333", nil)
+	log.Printf("Listening on the port %d\n", conf.Port)
+	err = http.ListenAndServe(fmt.Sprintf(":%d", conf.Port), nil)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
