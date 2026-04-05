@@ -38,7 +38,7 @@ jobs:
 
                   echo 'PACKAGER="orion <contact@oriondev.fr>"' >> /etc/abuild.conf
                   echo 'MAINTAINER="$PACKAGER"' >> /etc/abuild.conf
-                  abuild-keygen --append --install
+                  abuild-keygen --append --install -n
 
                   mkdir package
                   cp assets/APKBUILD package/
