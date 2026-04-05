@@ -37,6 +37,7 @@ You can add a message to your page with adding a "message.txt" in the directory.
 echo "https://git.oriondev.fr/api/packages/orion/alpine/stable/master" >> /etc/apk/repositories
 cd /etc/apk/keys/ 
 curl -JO https://git.oriondev.fr/api/packages/orion/alpine/key
+apk update
 apk add status
 rc-update add status default
 rc-service status start
