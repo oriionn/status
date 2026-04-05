@@ -43,7 +43,7 @@ jobs:
                   mkdir -p /home/user/package
                   cp assets/APKBUILD /home/user/package/
                   cp bin/* /home/user/package/
-                  chown -R user:user /home/user/package
+                  chown -R $(id -u user):$(id -g user) /home/user/package
 
             - name: Package
               run: |
