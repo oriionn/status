@@ -42,7 +42,7 @@ jobs:
 
                   su user -c "abuild-keygen --append --install -n"
                   mkdir -p /home/user/package
-                  cp assets/APKBUILD /home/user/package/
+                  cp assets/* /home/user/package/
                   cp bin/* /home/user/package/
                   chown -R $(id -u user):$(id -g user) /home/user/package
 
