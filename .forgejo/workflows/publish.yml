@@ -49,4 +49,9 @@ jobs:
             - name: Package
               run: |
                   su user -c "cd /home/user/package && abuild checksum && abuild -r"
-                  ls /home/user/packages/user/x86_64
+
+            - name: Publish
+              run: |
+                  curl --user ${{ github.repository_owner }}:${{ secrets.REGISTRY_TOKEN }} \
+                      --upload-file /home/user/packages/user/x86_64/*.apk \
+                      https://${{ env.REGISTRY }}/api/packages/${{ github.repository_owner }}/alpine/${{ env.BRANCH }}/${{ env.REPOSITORY }}
