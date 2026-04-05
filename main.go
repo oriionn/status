@@ -15,7 +15,7 @@ func main() {
 	}
 
 	flag.IntVarP(&conf.Port, "port", "p", conf.Port, "listening port")
-	flag.IntVarP(&conf.Interval, "interval", "i", conf.Interval, "check interval")
+	flag.IntVarP(&conf.Interval, "interval", "i", conf.Interval, "checking interval (in seconds)")
 	flag.Parse()
 
 	Run(conf)
