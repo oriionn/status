@@ -49,4 +49,4 @@ jobs:
             - name: Package
               run: |
                   su user -c "cd /home/user/package && abuild checksum && abuild -r"
-                  ls /home/user/packages/
+                  ls /home/user/packages/user/
