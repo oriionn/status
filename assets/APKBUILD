@@ -1,0 +1,27 @@
+# Contributor: orion <contact@oriondev.fr>
+# Maintainer: orion <contact@oriondev.fr>
+pkgname=status
+pkgver=1.0.0
+pkgrel=0
+pkgdesc="A lightweight and minimalistic status page written in Go"
+url="https://git.oriondev.fr/orion/status"
+arch="x86_64 x86 aarch64 armv7 armhf"
+license="MIT"
+options="!check"
+source="status-linux-x86_64
+	status-linux-x86
+	status-linux-aarch64
+	status-linux-armv7
+	status-linux-armhf"
+builddir="$srcdir/"
+
+package() {
+    case "$CARCH" in
+        x86_64) _bin="status-linux-x86_64" ;;
+        x86)    _bin="status-linux-x86" ;;
+        aarch64) _bin="status-linux-aarch64" ;;
+        armv7)  _bin="status-linux-armv7" ;;
+        armhf)  _bin="status-linux-armhf" ;;
+    esac
+    install -Dm755 "$srcdir/$_bin" "$pkgdir/usr/bin/status"
+}

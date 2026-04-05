@@ -1,0 +1,48 @@
+name: Publish package to APK
+
+on:
+    release:
+    workflow_dispatch:
+
+env:
+    REGISTRY: git.oriondev.fr
+    PACKAGE_NAME: status
+    BRANCH: stable
+    REPOSITROY: master
+
+jobs:
+    publish:
+        runs-on: alpine-latest
+
+        step:
+            - uses: actions/checkout@v4
+              name: Checkout
+
+            - uses: actions/setup-go@v6
+              name: Setup Go
+              with:
+                  go-version-file: "go.mod"
+                  cache-dependency-path: "go.sum"
+
+            - name: Compile
+              run: make compile
+
+            - name: Setting up packaging environment
+              run: |
+                  apk add alpine-sdk atools doas
+                  adduser -G wheel -D user
+                  echo "permit nopass :wheel as root" > /etc/doas.d/doas.conf
+
+                  echo 'PACKAGER="orion <contact@oriondev.fr>"' >> /etc/abuild.conf
+                  echo 'MAINTAINER="$PACKAGER"' >> /etc/abuild.conf
+                  abuild-keygen --append --install
+
+                  mkdir package
+                  cp assets/APKBUILD package/
+                  cp bin/* package/
+
+            - name: Package
+              run: |
+                  abuild checksum
+                  abuild rootbld
+                  ls ~/packages/
