@@ -38,14 +38,14 @@ jobs:
 
                   echo 'PACKAGER="orion <contact@oriondev.fr>"' >> /etc/abuild.conf
                   echo 'MAINTAINER="$PACKAGER"' >> /etc/abuild.conf
-                  abuild-keygen --append --install -n
 
-                  mkdir package
-                  cp assets/APKBUILD package/
-                  cp bin/* package/
+                  su user -c "abuild-keygen --append --install -n"
+                  mkdir -p /home/user/package
+                  cp assets/APKBUILD /home/user/package/
+                  cp bin/* /home/user/package/
+                  chown -R user:user /home/user/package
 
             - name: Package
               run: |
-                  abuild checksum
-                  abuild rootbld
-                  ls ~/packages/
+                  su user -c "cd /home/user/package && abuild checksum && abuild -r"
+                  ls /home/user/packages/
