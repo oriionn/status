@@ -12,7 +12,8 @@ source="status-linux-x86_64
 	status-linux-x86
 	status-linux-aarch64
 	status-linux-armv7
-	status-linux-armhf"
+	status-linux-armhf
+	openrc"
 builddir="$srcdir/"
 
 package() {
