@@ -20,7 +20,7 @@ func Load() (Config, error) {
 	}
 
 	if conf.Icon == "" {
-		conf.Icon = "/status.png"
+		conf.Icon = "https://placehold.co/600x400"
 	}
 
 	if conf.Port == 0 {
