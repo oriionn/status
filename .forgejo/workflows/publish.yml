@@ -8,13 +8,16 @@ env:
     REGISTRY: git.oriondev.fr
     PACKAGE_NAME: status
     BRANCH: stable
-    REPOSITROY: master
+    REPOSITORY: master
 
 jobs:
     publish:
         runs-on: alpine-latest
 
         steps:
+            - name: Install Node.js
+              run: apk add --no-cache nodejs
+
             - uses: actions/checkout@v4
               name: Checkout
 
