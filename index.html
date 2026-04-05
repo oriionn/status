@@ -6,6 +6,12 @@
     <meta http-equiv="refresh" content="60">
     <title>{{ .Title }} - {{ .Description }}</title>
 
+    <meta name="description" content={{ .Description }}>
+    <meta property="og:title" content={{ .Title }}>
+    <meta property="og:description" content={{ .Description }}>
+    <meta property="og:type" content="website">
+    <meta property="og:image" content={{ .Icon }}>
+
     <style>
         * {
             font-family: sans-serif;
