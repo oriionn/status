@@ -34,7 +34,7 @@ jobs:
               run: |
                   apk add alpine-sdk atools doas
                   adduser -G wheel -D user
-                  usermod -aG abuild user
+                  addgroup user abuild
                   echo "permit nopass :wheel as root" > /etc/doas.d/doas.conf
 
                   echo 'PACKAGER="orion <contact@oriondev.fr>"' >> /etc/abuild.conf
