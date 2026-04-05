@@ -18,6 +18,9 @@ url = "https://git.oriondev.fr" # url of the service, used in checking requests 
 show_url = true # use hyperlink on the service's name (optional, default: false)
 ```
 
+## Message
+You can add a message to your page with adding a "message.txt" in the directory. This modification doesn't need a restart.
+
 ## Command Line Options
 ### Usage
 `status [options]`
@@ -35,6 +38,8 @@ echo "https://git.oriondev.fr/api/packages/orion/alpine/stable/master" >> /etc/a
 cd /etc/apk/keys/ 
 curl -JO https://git.oriondev.fr/api/packages/orion/alpine/key
 apk add status
+rc-update add status default
+rc-service status start
 ```
 
 ### Other
