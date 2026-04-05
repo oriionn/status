@@ -11,7 +11,7 @@ func Load() (Config, error) {
 	var conf Config
 	f := "config.toml"
 	if _, err := os.Stat("config.toml"); err != nil {
-		return conf, errors.New("Configuration file not file. Please create a config.toml file")
+		return conf, errors.New("Configuration file not found. Please create a config.toml file")
 	}
 
 	_, err := toml.DecodeFile(f, &conf)
