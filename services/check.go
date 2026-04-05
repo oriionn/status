@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 	"sync"
+	"time"
 )
 
 func Check(service *Service) bool {
@@ -38,4 +39,13 @@ func CheckServices(l *[]Service) {
 		}(&(*l)[i])
 	}
 	wg.Wait()
+}
+
+func StartTimer(l *[]Service, interval int) {
+	CheckServices(l)
+	go func() {
+		for range time.Tick(time.Duration(interval) * time.Second) {
+			CheckServices(l)
+		}
+	}()
 }

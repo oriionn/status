@@ -4,54 +4,33 @@ import (
 	_ "embed"
 	"html/template"
 	"net/http"
-	"time"
 
+	"git.oriondev.fr/orion/status/config"
 	"git.oriondev.fr/orion/status/services"
 )
 
-type PageData struct {
-	Services []services.Service
-}
-
-
-
 func getPage(
 	w http.ResponseWriter,
-	servicesList []services.Service,
+	config config.Config,
 	t *template.Template,
 ) {
-	t.Execute(w, PageData{
-		Services: servicesList,
-	})
+	t.Execute(w, config)
 }
 
 func main() {
-	servicesList := []services.Service{
-		{
-			Name: "Forgejo",
-			URL: "https://git.oriondev.fr",
-			ShowURL: true,
-		},
-		{
-			Name: "Portfolio",
-			URL: "https://oriondev.f",
-			ShowURL: true,
-		},
+	conf, err := config.Load()
+	if err != nil {
+		panic(err)
 	}
 
 	t := renderTemplate()
-
 	http.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
-		getPage(w, servicesList, t)
+		getPage(w, conf, t)
 	})
 
-	go func() {
-		for range time.Tick(time.Second) {
-			services.CheckServices(&servicesList)
-		}
-	}()
+	services.StartTimer(&conf.Services, conf.Interval)
 
-	err := http.ListenAndServe(":3333", nil)
+	err = http.ListenAndServe(":3333", nil)
 	if err != nil {
 		panic(err)
 	}
