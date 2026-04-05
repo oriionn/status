@@ -1,0 +1,17 @@
+#!/sbin/openrc-run
+
+name="status"
+description="A lightweight and minimalistic status page written in Go."
+command="/usr/bin/status"
+directory="/etc/status"
+
+pidfile="/run/$SVCNAME.pid"
+command_background="yes"
+
+depend() {
+    need net
+}
+
+start_pre() {
+    mkdir -p /etc/status/
+}

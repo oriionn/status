@@ -24,4 +24,5 @@ package() {
         armhf)  _bin="status-linux-armhf" ;;
     esac
     install -Dm755 "$srcdir/$_bin" "$pkgdir/usr/bin/status"
+    install -Dm755 "$srcdir/openrc" "$pkgdir/etc/init.d/status"
 }
