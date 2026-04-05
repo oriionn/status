@@ -9,4 +9,6 @@ type Config struct {
 	Interval int `toml:"interval"`
 	Port int `toml:"port"`
 	Services []services.Service `toml:"service"`
+
+	Message []string
 }

@@ -68,6 +68,15 @@
         a {
             color: white;
         }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+
+            padding: 10px;
+            border: 1px solid #DC143C;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -80,6 +89,14 @@
             <span>{{ .Description }}</span>
         </div>
     </header>
+
+    {{ if .Message }}
+        <p class="message">
+            {{ range $_, $msg := .Message }}
+                {{ $msg }}
+            {{ end }}
+        </p>
+    {{ end }}
 
     <section class="table">
         <table>
