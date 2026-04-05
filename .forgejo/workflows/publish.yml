@@ -16,7 +16,7 @@ jobs:
 
         steps:
             - name: Install Node.js, make and curl
-              run: apk add --no-cache nodejs make
+              run: apk add --no-cache nodejs make curl
 
             - uses: actions/checkout@v4
               name: Checkout
