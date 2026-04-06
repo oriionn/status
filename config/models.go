@@ -1,6 +1,8 @@
 package config
 
 import (
+	"time"
+
 	"git.oriondev.fr/orion/status/services"
 )
 
@@ -12,5 +14,5 @@ type Config struct {
 	Port int `toml:"port"`
 	Services []services.Service `toml:"service"`
 
-	Message []string
+	StartTime time.Time
 }

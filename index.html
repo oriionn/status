@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="60">
-    <title>{{ .Title }} - {{ .Description }}</title>
+    <title>{{ .Config.Title }} - {{ .Config.Description }}</title>
 
-    <meta name="description" content={{ .Description }}>
-    <meta property="og:title" content={{ .Title }}>
-    <meta property="og:description" content={{ .Description }}>
+    <meta name="description" content={{ .Config.Description }}>
+    <meta property="og:title" content={{ .Config.Title }}>
+    <meta property="og:description" content={{ .Config.Description }}>
     <meta property="og:type" content="website">
-    <meta property="og:image" content={{ .Icon }}>
+    <meta property="og:image" content={{ .Config.Icon }}>
+    <link rel="icon" href={{ .Config.Icon }}>
 
     <style>
         * {
@@ -74,8 +75,17 @@
             border-collapse: collapse;
         }
 
+        thead {
+            margin-bottom: 10px;
+        }
+
         table th {
             text-align: left;
+        }
+
+        table th, table td {
+            width: min-content;
+            margin: 0 20px;
         }
 
         table tbody tr:nth-child(even) {
@@ -105,20 +115,32 @@
             header .title h1 {
                 margin-bottom: -5px;
             }
+
+            table th:has(span) {
+                display: flex;
+                flex-direction: column;
+            }
+
+            table th span:nth-child(even) {
+                font-size: 10px;
+                color: rgba(255, 255, 255, .8);
+                font-weight: 400;
+                line-height: 12px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="img_container">
-            <img src={{ .Icon }} alt="Logo" />
+            <img src={{ .Config.Icon }} alt="Logo" />
         </div>
         <div>
             <div class="title">
-                <h1>{{ .Title }}</h1>
+                <h1>{{ .Config.Title }}</h1>
                 <span>Powered by <a href="https://git.oriondev.fr/orion/status">status</a> by <a href="https://oriondev.fr">Orion</a></span>
             </div>
-            <span>{{ .Description }}</span>
+            <span>{{ .Config.Description }}</span>
         </div>
     </header>
 
@@ -136,12 +158,12 @@
                 <tr>
                     <th>Service</th>
                     <th>Status</th>
-                    <th>Uptime</th>
+                    <th><span>Uptime</span> <span>(on the last {{ format .Duration }})</span></th>
                     <th>Latency</th>
                 </tr>
             </thead>
             <tbody>
-                {{range .Services}}
+                {{range .Config.Services}}
                     <tr>
                         <td>
                             {{if .ShowURL}}
