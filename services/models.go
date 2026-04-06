@@ -4,8 +4,8 @@ type Service struct {
  	Name string `toml:"name"`
     URL  string `toml:"url"`
     ShowURL bool `toml:"show_url"`
-	Up int
-	Total int
+	Up uint
+	Total uint
 	Status bool
 	Latency int
 }

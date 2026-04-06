@@ -1,6 +1,8 @@
 package config
 
-import "git.oriondev.fr/orion/status/services"
+import (
+	"git.oriondev.fr/orion/status/services"
+)
 
 type Config struct {
 	Title string `toml:"title"`

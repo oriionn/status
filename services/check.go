@@ -41,13 +41,14 @@ func Check(service *Service) bool {
 		res.Body.Close()
 	}
 
-	up := res.StatusCode < 400
-	if up {
+	status := res.StatusCode < 400
+	if status {
 		service.Up++
 	}
-	service.Status = up
+
+	service.Status = status
 	service.Latency = int(result.StartTransfer / time.Millisecond)
-	return up
+	return status
 }
 
 func CheckServices(l *[]Service) {
