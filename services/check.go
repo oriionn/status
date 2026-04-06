@@ -6,16 +6,34 @@ import (
 	"net/http"
 	"sync"
 	"time"
+
+	"github.com/tcnksm/go-httpstat"
 )
+
+func Fetch(method string, url string, result *httpstat.Result) (*http.Response, error) {
+	req, err := http.NewRequest(method, url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	ctx := httpstat.WithHTTPStat(req.Context(), result)
+	req = req.WithContext(ctx)
+
+	client := http.DefaultClient
+	return client.Do(req)
+
+}
 
 func Check(service *Service) bool {
 	log.Printf("Service: checking status of %s\n", service.Name)
 	service.Total++
 
+	var result httpstat.Result
+
 	url := service.URL
-	res, err := http.Head(url)
+	res, err := Fetch("HEAD", url, &result)
 	if err != nil {
-		res, err = http.Get(url)
+		res, err = Fetch("GET", url, &result)
 		if err != nil {
 			return false
 		}
@@ -28,6 +46,7 @@ func Check(service *Service) bool {
 		service.Up++
 	}
 	service.Status = up
+	service.Latency = int(result.StartTransfer / time.Millisecond)
 	return up
 }
 

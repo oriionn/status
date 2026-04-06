@@ -7,4 +7,5 @@ type Service struct {
 	Up int
 	Total int
 	Status bool
+	Latency int
 }
