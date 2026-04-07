@@ -30,7 +30,7 @@ const (
 func renderTemplate() *template.Template {
 	funcMap := template.FuncMap{
 	    "percent": func(x uint, y uint) uint {
-	        return (x / y) * 100
+	        return (x * 100) / y
 	    },
 		"format": func(d time.Duration) string {
 			i := d/time.Millisecond
