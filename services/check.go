@@ -1,54 +1,31 @@
 package services
 
 import (
-	"io"
 	"log"
-	"net/http"
 	"sync"
 	"time"
 
-	"github.com/tcnksm/go-httpstat"
+	"git.oriondev.fr/orion/status/services/fetch"
 )
 
-func Fetch(method string, url string, result *httpstat.Result) (*http.Response, error) {
-	req, err := http.NewRequest(method, url, nil)
-	if err != nil {
-		return nil, err
-	}
 
-	ctx := httpstat.WithHTTPStat(req.Context(), result)
-	req = req.WithContext(ctx)
-
-	client := http.DefaultClient
-	return client.Do(req)
-
-}
 
 func Check(service *Service) bool {
 	log.Printf("Service: checking status of %s\n", service.Name)
 	service.Total++
 
-	var result httpstat.Result
-
-	url := service.URL
-	res, err := Fetch("HEAD", url, &result)
+	data, err := fetch.Fetch(service.URL)
 	if err != nil {
-		res, err = Fetch("GET", url, &result)
-		if err != nil {
-			return false
-		}
-		io.Copy(io.Discard, res.Body)
-		res.Body.Close()
+		return false
 	}
 
-	status := res.StatusCode < 400
-	if status {
+	if data.Status {
 		service.Up++
 	}
 
-	service.Status = status
-	service.Latency = int(result.StartTransfer / time.Millisecond)
-	return status
+	service.Status = data.Status
+	service.Latency = data.Latency
+	return data.Status
 }
 
 func CheckServices(l *[]Service) {
