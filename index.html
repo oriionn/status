@@ -178,7 +178,11 @@
                             <td>DOWN</td>
                         {{end}}
                         <td>{{ percent .Up .Total }}%</td>
-                        <td>{{ .Latency }}ms</td>
+                        <td>
+                            {{ if .Status }}
+                                {{ .Latency }}ms
+                            {{ end }}
+                        </td>
                     </tr>
                 {{end}}
             </tbody>
