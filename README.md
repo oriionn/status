@@ -18,6 +18,10 @@ url = "https://git.oriondev.fr" # url of the service, used in checking requests 
 show_url = true # use hyperlink on the service's name (optional, default: false)
 ```
 
+### Supported protocols
+- `http`/`https` : Web pages can be pinged by status
+- `minecraft` : Minecraft server can be pinged by status. You can add a minecraft server with a URL like this : `mc://<address>:<port>`
+
 ## Message
 You can add a message to your page with adding a "message.txt" in the directory. This modification doesn't need a restart.
 
